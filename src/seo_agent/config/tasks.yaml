@@ -1,0 +1,149 @@
+backlink_task:
+  description: >
+    Use SEMrush to find backlink opportunities and analyze competitors.
+  expected_output: >
+    A report detailing backlink opportunities and competitive analysis.
+  tools:
+    - semrush_tool
+  agent: backlink_agent
+
+content_creation_tasks:
+  - description: >
+      Scrape the {client} website for category page data and store in the database.
+    expected_output: >
+      Database updated with category page data.
+    agent: content_agents[0]
+    tools:
+      - ScrapeWebsiteTool
+      - StoreInDatabaseTool
+    args:
+      ScrapeWebsiteTool:
+        url: "{client_category_page_url}"
+      StoreInDatabaseTool:
+        content_type: "category"
+        data: "{scrape_client_website.result}"
+
+  - description: >
+      Scrape the {client}  website for product reviews and store in the database.
+    expected_output: >
+      Database updated with product review data.
+    agent: content_agents[1]
+    tools:
+      - ScrapeWebsiteTool
+      - StoreInDatabaseTool
+    args:
+      ScrapeWebsiteTool:
+        url: "{client_product_review_page_url}"
+      StoreInDatabaseTool:
+        content_type: "product_review"
+        data: "{scrape_client_website.result}"
+
+  - description: >
+      Scrape the {client} website for product descriptions and store in the database.
+    expected_output: >
+      Database updated with product description data.
+    agent: content_agents[2]
+    tools:
+      - ScrapeWebsiteTool
+      - StoreInDatabaseTool
+    args:
+      ScrapeWebsiteTool:
+        url: "{client_product_description_page_url}"
+      StoreInDatabaseTool:
+        content_type: "product_description"
+        data: "{scrape_client_website.result}"
+
+  - description: >
+      Scrape the {client} website for landing pages and store in the database.
+    expected_output: >
+      Database updated with landing page data.
+    agent: content_agents[3]
+    tools:
+      - ScrapeWebsiteTool
+      - StoreInDatabaseTool
+    args:
+      ScrapeWebsiteTool:
+        url: "{client_landing_page_url}"
+      StoreInDatabaseTool:
+        content_type: "landing_page"
+        data: "{scrape_client_website.result}"
+
+  - description: >
+      Scrape the {client} website for team blog content and store in the database.
+    expected_output: >
+      Database updated with team blog data.
+    agent: content_agents[4]
+    tools:
+      - ScrapeWebsiteTool
+      - StoreInDatabaseTool
+    args:
+      ScrapeWebsiteTool:
+        url: "{client_team_blog_page_url}"
+      StoreInDatabaseTool:
+        content_type: "team_blog"
+        data: "{scrape_client_website.result}"
+
+content_brief_tasks:
+  - description: >
+      Generate a brief for category page content.
+    expected_output: >
+      Brief summarizing stored category page data.
+    agent: content_brief_manager
+    tools:
+      - FetchFromDatabaseTool
+    args:
+      FetchFromDatabaseTool:
+        content_type: "category"
+
+  - description: >
+      Generate a brief for product review content.
+    expected_output: >
+      Brief summarizing stored product review data.
+    agent: content_brief_manager\
+    tools:
+      - FetchFromDatabaseTool
+    args:
+      FetchFromDatabaseTool:
+        content_type: "product_review"
+
+  - description: >
+      Generate a brief for product description content.
+    expected_output: >
+      Brief summarizing stored product description data.
+    agent: content_brief_manager
+    tools:
+      - FetchFromDatabaseTool
+    args:
+      FetchFromDatabaseTool:
+        content_type: "product_description"
+
+  - description: >
+      Generate a brief for landing page content.
+    expected_output: >
+      Brief summarizing stored landing page data.
+    agent: content_brief_manager
+    tools:
+      - FetchFromDatabaseTool
+    args:
+      FetchFromDatabaseTool:
+        content_type: "landing_page"
+
+  - description: >
+      Generate a brief for team blog content.
+    expected_output: >
+      Brief summarizing stored team blog data.
+    agent: content_brief_manager
+    tools:
+      - FetchFromDatabaseTool
+    args:
+      FetchFromDatabaseTool:
+        content_type: "team_blog"
+
+seo_director_task:
+  description: >
+    Use the briefs to create content and publish on the website.
+  expected_output: >
+    Content created and published on the website.
+  agent: seo_director
+  tools:
+    - ShopifyPostTool
