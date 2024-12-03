@@ -8,7 +8,8 @@ import os
 
 load_dotenv()
 
-
+# Set up environment variables
+os.environ["OPENAI_API_KEY"] = "YOUR_API_KEY_HERE"
 
 @CrewBase
 class SeoAgent():
