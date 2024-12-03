@@ -4,7 +4,7 @@ seo_director:
   goal: >
     Consolidate all sub-agent data to create a content plan.
   backstory: >
-    You are the main strategist for SEO campaigns, coordinating all efforts..
+    You take the data from content manager and research manager.
 
 backlink_agent:
   role: >
@@ -56,4 +56,29 @@ content_brief_manager:
   goal: >
     Consolidate and summarize data from sub-agents into actionable briefs.
   backstory: >
-    You bridge the gap between content creation and SEO execution.
+    You bridge the gap between content creation, competitor research and SEO execution.
+
+research_manager:
+  role: >
+    Research Agent
+  goal: >
+    Find the top ranked content for a given {competitor} {topic} {keyword} and give it to sub-agents.
+  backstory: >
+    You are responsible for managing the data coming from the sub-agents.
+
+competitor_research_agent:
+  role: >
+    Competitor Research Agent
+  goal: >
+    Scrape the website and Youtube of a given {competitor} and send the data to the research manager.
+
+  backstory: >
+    You are a specialist in scraping websites and Youtube and finding insights about a given {competitor}.
+
+topic_research_agent:
+  role: >
+    Topic Research Agent
+  goal: >
+    Find the top ranked content for a given {topic} and send it to the research manager.
+  backstory: >
+    You are a specialist in finding top ranked content for a given {topic}.

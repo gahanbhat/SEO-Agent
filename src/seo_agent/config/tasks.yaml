@@ -139,9 +139,36 @@ content_brief_tasks:
       FetchFromDatabaseTool:
         content_type: "team_blog"
 
+content_brief_manager:
+  description: >
+    Manage sub content agents and ensure timely delivery to the SEO director.
+  agent: content_brief_manager
+
+research_manager:
+  description: >
+    Manage sub research agents and provide top articles on {competitor} {topic} {keyword} to the sub agents, take the data from the sub agents and send it to the SEO director.
+  agent: research_manager
+  tools:
+    - WebsiteSearchTool
+
+research_agent:
+  description: >
+    Scrape the website and Youtube of a given {competitor} and send the data to the research manager.
+  agent: research_agent
+  tools:
+    - ScrapeWebsiteTool
+    - YoutubeChannelSearchTool
+topic_research_agent:
+  description: >
+    Find the top articles on {topic} and scrape them and send it to the research manager.
+  agent: topic_research_agent
+  tools:
+    - WebsiteSearchTool
+    - ScrapeWebsiteTool
+
 seo_director_task:
   description: >
-    Use the briefs to create content and publish on the website.
+    Take the data from content brief manager and research manager and create content based on {type of post} for the website.
   expected_output: >
     Content created and published on the website.
   agent: seo_director

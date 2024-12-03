@@ -2,7 +2,7 @@ from crewai import Agent, Crew, Process, Task, LLM
 from crewai.project import CrewBase, agent, crew, task, before_kickoff, after_kickoff
 from dotenv import load_dotenv
 from seo_agent.tools.custom_tool import SemrushTool, StoreInDatabaseTool, FetchFromDatabaseTool, ShopifyPostTool		
-from crewai_tools import ScrapeWebsiteTool	
+from crewai_tools import ScrapeWebsiteTool, WebsiteSearchTool, YoutubeChannelSearchTool
 import os
 
 
@@ -30,14 +30,7 @@ class SeoAgent():
 		print(f"Results: {output}")
 		return output
 
-	@agent
-	def seo_director(self) -> Agent:
-		return Agent(
-			config=self.agents_config['seo_director'],
-			tools=[ShopifyPostTool()],
-			verbose=True,
-			
-		)
+
 
 	@agent
 	def backlink_agent(self) -> Agent:
@@ -64,13 +57,47 @@ class SeoAgent():
 			verbose=True,
 			
 		)
+	@agent
+	def research_manager(self) -> Agent:
+		return Agent(
+			config=self.agents_config['research_manager'],
+			tools=[WebsiteSearchTool()],
+			verbose=True,
+			
+		)
+	@agent
+	def competitor_research_agent(self) -> Agent:
+		return Agent(
+			config=self.agents_config['competitor_research_agent'],
+			tools=[ScrapeWebsiteTool(), YoutubeChannelSearchTool()],
+			verbose=True,
+			
+		)
+	
+	@agent
+	def topic_research_agent(self) -> Agent:
+		return Agent(
+			config=self.agents_config['topic_research_agent'],
+			tools=[WebsiteSearchTool(), ScrapeWebsiteTool()],
+			verbose=True,
+			
+		)
+	
+	@agent
+	def seo_director(self) -> Agent:
+		return Agent(
+			config=self.agents_config['seo_director'],
+			tools=[ShopifyPostTool()],
+			verbose=True,
+			
+		)
 
 	@task
 	def backlink_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['backlink_task'],
 		)
-
+	
 	@task
 	def content_creation_tasks(self) -> Task:	
 		return Task(
@@ -82,7 +109,26 @@ class SeoAgent():
 		return Task(
 			config=self.tasks_config['content_brief_manager_task'],
 		)
-	
+	@task
+	def content_brief_tasks(self) -> Task:
+		return Task(
+			config=self.tasks_config['content_brief_tasks'],
+		)
+	@task
+	def research_manager_task(self) -> Task:
+		return Task(
+			config=self.tasks_config['research_manager_task'],
+		)
+	@task
+	def competitor_research_agent_task(self) -> Task:
+		return Task(
+			config=self.tasks_config['competitor_research_agent_task'],
+		)
+	@task
+	def topic_research_agent_task(self) -> Task:
+		return Task(
+			config=self.tasks_config['topic_research_agent_task'],
+		)
 	@task
 	def seo_director_task(self) -> Task:
 		return Task(
