@@ -1,3 +1,5 @@
+![SEO Agent](https://github.com/user-attachments/assets/a1f8f3ca-c6fc-4c64-b8d2-0a7a762592b2)
+
 # SeoAgent Crew
 
 Welcome to the SeoAgent Crew project, powered by [crewAI](https://crewai.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
